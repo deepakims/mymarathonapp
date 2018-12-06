@@ -5,10 +5,10 @@ from collections import OrderedDict
 from os.path import exists
 from wheel.pep425tags import get_abbr_impl, get_impl_ver, get_abi_tag
 platform = '{}{}-{}'.format(get_abbr_impl(), get_impl_ver(), get_abi_tag())
-cuda_output = get_ipython().getoutput("ldconfig -p|grep cudart.so|sed -e 's/.*\\.\\([0-9]*\\)\\.\\([0-9]*\\)$/cu\\1\\2/'")
+#cuda_output = get_ipython().getoutput("ldconfig -p|grep cudart.so|sed -e 's/.*\\.\\([0-9]*\\)\\.\\([0-9]*\\)$/cu\\1\\2/'")
 accelerator = cuda_output[0] if exists('/dev/nvidia0') else 'cpu'
 
-get_ipython().system('pip install -q http://download.pytorch.org/whl/{accelerator}/torch-0.4.1-{platform}-linux_x86_64.whl torchvision')
+#get_ipython().system('pip install -q http://download.pytorch.org/whl/{accelerator}/torch-0.4.1-{platform}-linux_x86_64.whl torchvision')
 import torch
 
 
@@ -37,9 +37,9 @@ import numpy as np
 
 #parameters for the Model
 parameters = OrderedDict()
-parameters['train'] = "../input/dictionarydata/eng.train" #Path to train file
-parameters['dev'] = "../input/dictionarydata/eng.testa" #Path to test file
-parameters['test'] = "../input/dictionarydata/eng.testb" #Path to dev file
+parameters['train'] = "eng.train" #Path to train file
+parameters['dev'] = "eng.testa" #Path to test file
+parameters['test'] = "eng.testb" #Path to dev file
 parameters['tag_scheme'] = "BIOES" #BIO or BIOES
 parameters['lower'] = True # Boolean variable to control lowercasing of words
 parameters['zeros'] =  True # Boolean variable to control replacement of  all digits by 0 
@@ -47,7 +47,7 @@ parameters['char_dim'] = 30 #Char embedding dimension
 parameters['word_dim'] = 100 #Token embedding dimension
 parameters['word_lstm_dim'] = 200 #Token LSTM hidden layer size
 parameters['word_bidirect'] = True #Use a bidirectional LSTM for words
-parameters['embedding_path'] = "../input/glove-data/glove.6B.100d.txt" #Location of pretrained embeddings
+parameters['embedding_path'] = "glove.6B.100d.txt" #Location of pretrained embeddings
 parameters['all_emb'] = 1 #Load all embeddings
 parameters['crf'] =1 #Use CRF (0 to disable)
 parameters['dropout'] = 0.5 #Droupout on the input (0 = no dropout)
@@ -73,7 +73,7 @@ STOP_TAG = '<STOP>'
 
 #paths to files 
 #To stored mapping file
-mapping_file = '../input/dictionarydata/mapping.pkl'
+mapping_file = 'mapping.pkl'
 
 #To stored model
 name = parameters['name']
